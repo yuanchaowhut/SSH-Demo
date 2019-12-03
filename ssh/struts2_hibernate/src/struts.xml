@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.configuration.xml.reload" value="true"></constant>
+
+	<package name="default" extends="struts-default">
+		<!-- 配置默认的action(当请求的action不存在时,会执行默认的action) -->
+		<default-action-ref name="default"></default-action-ref>
+
+		<action name="register" class="cn.com.egova.action.RegisterAction"	method="register">
+			<result>/success.jsp</result>
+		</action>
+
+		<action name="default">
+			<result>/error.jsp</result>
+		</action>
+	</package>
+
+</struts>
