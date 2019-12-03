@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="user" extends="struts-default">
+		<action name="login" class="cn.sxt.action.UserAction" method="login">
+			<result name="success" type="redirectAction">list</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		<action name="list" class="cn.sxt.action.UserAction" method="list">
+			<result name="success">/list.jsp</result>
+		</action>
+		<action name="toUpdate" class="cn.sxt.action.UserAction" method="toUpdate">
+			<result>/update.jsp</result>
+		</action>
+		<action name="update" class="cn.sxt.action.UserAction" method="update">
+			<result type="redirectAction">list</result>
+			<result name="error">/error.jsp</result>
+		</action>
+	</package>
+</struts>

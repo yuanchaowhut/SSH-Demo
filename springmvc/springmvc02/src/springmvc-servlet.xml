@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+                        http://www.springframework.org/schema/context 
+                        http://www.springframework.org/schema/context/spring-context-4.0.xsd 
+                        http://www.springframework.org/schema/aop 
+                        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd" >
+			
+	
+   <!-- 自动扫描与装配bean-->
+	<context:component-scan base-package="cn.com.egova.**.controller" >
+	   <context:include-filter type="annotation"  
+            expression="org.springframework.stereotype.Controller" />  
+	</context:component-scan> 
+	
+	<!-- 这两个类用来启动基于Spring MVC的注解功能，将控制器与方法映射加入到容器中 -->
+    <bean
+        class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+    <bean
+        class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+
+    <!-- 这个类用于Spring MVC视图解析 -->
+    <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- <beans:property name="prefix" value="/WEB-INF/pages/" /> -->
+        <property name="suffix" value=".jsp" />
+    </bean>
+    
+    <!-- 处理文件上传 -->
+	<bean id="multipartResolver"  
+	    class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >  
+	    <property name="defaultEncoding" value="UTF-8"/> <!-- 默认编码 (ISO-8859-1) -->  
+	    <property name="maxInMemorySize" value="10240"/> <!-- 最大内存大小 (10240)-->  
+	    <property name="uploadTempDir" value="/upload/tmp" /> <!-- 上传文件的临时路径 -->  
+	    <property name="maxUploadSize" value="-1"/> <!-- 最大文件大小，-1为无限止(-1) -->  
+	</bean>
+    
+</beans>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 包的名称自定义，可以配置多个包；namespace命名空间：不同模块可以指定不同的空间 
+		extends  值是直接或者间接继承struts-default
+	 -->
+	<package name="user" namespace="/user" extends="struts-default">
+		<!-- 配置默认的Action 当所请求的action不存在时，那么执行默认的action-->
+		<default-action-ref name="default"/>
+		<!-- 配置默认执行的class -->
+		<default-class-ref class="cn.sxt.action.AddAction"/>
+		<!-- 配置全局结果集 -->
+		<global-results>
+			<result name="login">/login.jsp</result>
+		</global-results>
+		<!-- 
+			name是url请求名，不需要加后缀(.action)
+			class是处理url请求对应的java类，class要求包名+类名
+			并且该类是由公共的无参构造方法的。
+			method配置处理请求类的处理的方法，默认为execute;方法要满足是公共的，返回值类型是String,无参
+		 	method和name无关
+		 -->
+		<action name="login" class="cn.sxt.action.LoginAction">
+			<!-- 
+				result-指结果集
+				name:匹配请求处理方法的返回值；默认是success
+				type:结果处理类型；默认是dispather转发
+				type有哪些：
+				  <result-type name="chain" class="com.opensymphony.xwork2.ActionChainResult"/>
+            	  <result-type name="dispatcher" class="org.apache.struts2.dispatcher.ServletDispatcherResult" default="true"/>
+                  <result-type name="freemarker" class="org.apache.struts2.views.freemarker.FreemarkerResult"/>
+                  <result-type name="httpheader" class="org.apache.struts2.dispatcher.HttpHeaderResult"/>
+                  <result-type name="redirect" class="org.apache.struts2.dispatcher.ServletRedirectResult"/>
+            	  <result-type name="redirectAction" class="org.apache.struts2.dispatcher.ServletActionRedirectResult"/>
+            	  <result-type name="stream" class="org.apache.struts2.dispatcher.StreamResult"/>
+            	  <result-type name="velocity" class="org.apache.struts2.dispatcher.VelocityResult"/>
+          		  <result-type name="xslt" class="org.apache.struts2.views.xslt.XSLTResult"/>
+         		  <result-type name="plainText" class="org.apache.struts2.dispatcher.PlainTextResult" />
+				  chain:指action链,链接下一个action；执行actionA以后直接执行ActionB后直接执行ActionC，用得较少
+				  		地址栏是执行的第一action
+				  ***dispatcher：转发；和servlet一致。如果request中有数据要到视图显示，那么使用dispatcher
+				  ***redirect:重定向；如果是重定向到jsp页面，可以直接重定向，如果是重定向到另一个action，需注意
+				  	 是否配置了action的后缀名。如果要求有后缀名，那么重定向的action一定要加上后缀名
+				  ***redirectAction:重定向导另一个action;不用加action的后缀名,会将前一个action的后缀名自动加上
+				  ***stream：以流的形式显示-文件下载
+			 -->
+			<result type="redirectAction">logout</result>
+			
+		</action>
+		<action name="logout" class="cn.sxt.action.LoginAction" method="logout">
+			<result>/index.jsp</result>
+		</action>
+		<!-- <action name="add" class="cn.sxt.action.AddAction" method="add">
+			<result>/index.jsp</result>
+		</action>
+		<action name="delete" class="cn.sxt.action.AddAction" method="delete">
+			<result>/index.jsp</result>
+		</action> -->
+		<!-- 使用通配符来配置action，可以减少action的配置 *表示匹配所有，占位符用{1}表示
+		第一个*所代表的内容 -->
+		<action name="user*" class="cn.sxt.action.AddAction" method="{1}">
+			<result>/index.jsp</result>
+		</action>
+		<action name="default">
+			<result>/error.jsp</result>
+		</action>
+	</package>
+</struts>

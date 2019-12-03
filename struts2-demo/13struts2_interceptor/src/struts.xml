@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="default" extends="struts-default" namespace="/">
+		<!-- 配置拦截器 -->
+		<interceptors>
+			<interceptor name="time" class="cn.sxt.interceptor.TimeInterceptor"/>
+			<interceptor name="loginInterceptor" class="cn.sxt.interceptor.LoginInterceptor"/>
+			<interceptor name="methodInterceptor" class="cn.sxt.interceptor.ListInterceptor"/>
+			
+			<!-- 一个拦截器栈中，可以包含多个拦截器的引用
+				拦截器栈的引用和拦截器一致
+			 -->
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="methodInterceptor">
+					<!-- 配置被拦截的方法 -->
+					<param name="includeMethods">list,add</param>
+					<!-- 配置不被拦截的方法 -->
+					<param name="excludeMethods">login</param>
+				</interceptor-ref>
+				<interceptor-ref name="loginInterceptor"/>
+				<!-- 引用拦截器 -->
+				<interceptor-ref name="time"/>
+				<!-- 引用默认的拦截器栈 ；引用拦截器和引用拦截器栈的方式一样-->
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 定义默认的拦截器/栈 -->
+		<default-interceptor-ref name="myStack"/>
+		<global-results>
+			<result name="login">/login.jsp</result>
+		</global-results>
+		<action name="hello" class="cn.sxt.action.HelloAction">
+			<result>/WEB-INF/index.jsp</result>
+		</action>
+		<action name="add" class="cn.sxt.action.HelloAction" method="add">
+			<result>/WEB-INF/index.jsp</result>
+		</action>
+		<action name="list" class="cn.sxt.action.HelloAction" method="list">
+			<result>/WEB-INF/index.jsp</result>
+		</action>
+		<action name="login" class="cn.sxt.action.LoginAction">
+			<result>/success.jsp</result>
+		</action>
+	</package>	
+</struts>

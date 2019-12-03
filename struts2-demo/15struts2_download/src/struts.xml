@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="default" namespace="/" extends="struts-default">
+    	<!-- 当action的处理方法返回空是 不用配置结果集 -->
+    	<action name="download" class="cn.sxt.action.DownloadAction">
+    	</action>
+    	<action name="streamDownload" class="cn.sxt.action.StreamDownloadAction">
+    		<result type="stream">
+    			<param name="inputName">inputStream</param>
+    			<param name="contentDisposition">attachment;filename=${fileName}</param>
+    		</result>
+    	</action>
+    	
+    </package>
+</struts>

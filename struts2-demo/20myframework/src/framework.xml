@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<framework>
+	<action name="hello" class="cn.sxt.action.HelloAction">
+		<result name="success" type="dispatcher">/index.jsp</result>
+		<result name="failed" type="redirect">/index.jsp</result>
+	</action>
+	<action name="list" class="cn.sxt.action.UserAction" method="list">
+		<result>/list.jsp</result>
+	</action>
+</framework>

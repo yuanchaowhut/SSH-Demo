@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 包的名称自定义，可以配置多个包；namespace命名空间：不同模块可以指定不同的空间 
+		extends  值是直接或者间接继承struts-default
+	 -->
+	<package name="user" namespace="/" extends="struts-default">
+		<action name="login" class="cn.sxt.action.LoginAction3">
+			<result>/success.jsp</result>
+		</action>
+		<action name="logout" class="cn.sxt.action.LoginAction" method="logout">
+			<result>/index.jsp</result>
+		</action>
+	</package>
+</struts>

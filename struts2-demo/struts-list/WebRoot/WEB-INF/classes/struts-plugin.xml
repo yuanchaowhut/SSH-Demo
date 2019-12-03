@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<package name="list-default" extends="struts-default">
+		<interceptors>
+			<interceptor name="objectList" class="com.siggy.interceptor.ObjectListInterceptor"/>
+			<interceptor-stack name="listStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="objectList"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+	</package>
+</struts>    
